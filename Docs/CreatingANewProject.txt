@@ -1,0 +1,28 @@
+Create the same directory structure and symlink or copy in the files.
+For public/index.php you need to copy it, as that is where you do your
+customizations. (note: maybe copy lib files into externals to keep them
+separate and update index.php paths.  Or checkout zf2App to
+externals/zf2App and set that in the include path)
+
+The system reads config files based on the "deployment" variable,
+which is first loaded by checkign the ZF2_DEPLOYMENT environmental
+variable.  If that doesn't exist it looks for a file called
+deployment.txt in the conf dir, which should be a single line with
+the name of the deployment to use.  If that file doesn't exist, it
+defaults to using "charles".  The config file to be loaded will be
+<deployment>ini IE: charles.ini
+
+
+You need a copy of the adodb_lite DB abstraction library, and the path
+to it needs to be specified in the paths[] and adodb.inc.php in libs[]
+of the config file.
+
+You also need to enable mod_rewrite on the server and copy
+htaccess.example to .htaccess and update it with the proper URLs and
+paths.
+
+Once you have all the files copied and the config setup done, edit
+index.php and change the name of the base class to whatever your
+app is called, then change the formHandler method with your
+proper routes.  You might also want to update
+
