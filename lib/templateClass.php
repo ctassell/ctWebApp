@@ -240,7 +240,7 @@ class templateClass extends errorClass {
         $aryKeys = array_keys($aryTempKeys);
 		//Check for replacements in item tokens
 		foreach ($aryKeys as $key) {
-			$key = strtolower($key);
+			$key = substr(strtolower($key), 0, 100);
 			$value = '';
 			$found = false;
 			if (!$globalsOnly && array_key_exists($key, $this->aryTokens)) {
@@ -253,7 +253,7 @@ class templateClass extends errorClass {
 			if ($found) { // We found the key in our tokens, so do all the replacements
 				//print "$key = $value<br>\n";
   				$value = preg_replace('/\$/', '&#36;', $value); //Quick hack to fix the $# getting replaced by 0 
-  				$safeValue=preg_replace('/[^\w\d_-]/', '', $value);	// FIXME: Need to remove spaces, % and any other funky chars
+  				$safeValue=substr(preg_replace('/[^\w\d_-]/', '', $value),0,1024);	// FIXME: Need to remove spaces, % and any other funky chars
 				//print "$key = $value<br>\n";
   				$buffer = preg_replace("/%" . $key . "%/i", $value, $buffer);
   				$buffer = preg_replace("/%" . $key . "\|html%/i", htmlspecialchars($value), $buffer);
