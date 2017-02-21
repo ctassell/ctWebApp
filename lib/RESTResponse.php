@@ -103,7 +103,7 @@ class RESTResponse extends errorClass {
 	 */
 	public function getAllResponseFields()
 	{
-		return $this->aryResponseFields();
+		return $this->aryResponseFields;
 	}
 
 	/**
